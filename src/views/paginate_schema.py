@@ -18,6 +18,10 @@ class OperatorSchema(Schema):
             data['value'] = None
         return data
 
+class FromToSchema(Schema):
+    _from = fields.Float(required=True,  allow_none=True)
+    _to = fields.Float(required=True,  allow_none=True)
+
 
 class PaginationSchema(Schema):
     start = fields.Int(

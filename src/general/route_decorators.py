@@ -1,8 +1,12 @@
 import functools
 import gzip
-from flask import request, after_this_request
+
+import decorator
+import jwt
+from flask import request, after_this_request, jsonify, current_app
 from functools import wraps
 from io import BytesIO as IO
+from src.general import Status
 
 
 def allow_access(function):
@@ -22,6 +26,19 @@ def allow_access(function):
         :param function: function parameter
         :return: decorated_functon
         """
+
+        token = request.environ.get('HTTP_AUTHORIZATION', None)
+
+        if token is None:
+            return jsonify(message=Status.access_denied().message), 401
+        try:
+            payload = jwt.decode(
+                token,
+                current_app.config.get('JWT_SECRET_KEY'),
+                algorithms=["HS256"])
+        except Exception as e:
+            return jsonify(message=Status.access_denied().message), 401
+
         return function(*args, **kwargs)
 
     return decorated_function

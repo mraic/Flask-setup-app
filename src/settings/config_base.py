@@ -55,13 +55,18 @@ class ConfigBase:
     # --------------------------------------------------------------------------
     # Flask settings
     # --------------------------------------------------------------------------
-
+    FLASK_SETUP_APP_FRONTEND_API = None
 
     # --------------------------------------------------------------------------
     # Flask-Migrate config
     # --------------------------------------------------------------------------
     FLASK_MIGRATE_DB_DIRECTORY = APPLICATION_PACKAGE_ROOT.child('db').child(
         'migrations')
+
+    # --------------------------------------------------------------------------
+    # Email
+    # --------------------------------------------------------------------------
+    EMAIL_TOKEN = None
 
     # --------------------------------------------------------------------------
     # Flask-SQLAlchemy config
@@ -109,12 +114,15 @@ class ConfigBase:
                                                    fallback='')
 
         section = config_parser['Settings']
+        self.FLASK_SETUP_APP_FRONTEND_API = section.get('this_app_frontend_api',
+                                                fallback='')
         ##################################
 
         section = config_parser['Flask']
         self.SECRET_KEY = section.get('secret_key', fallback='')
         self.JWT_EXPIRES_IN = section.getint('jwt_expires_in_seconds',
                                              fallback=45)
+        self.EMAIL_TOKEN = section.get('email_token', fallback='')
         self.JWT_SECRET_KEY = section.get('jwt_secret_key', fallback = '')
         section = config_parser['Logging']
         self.FILELOG_LOGLEVEL = section.get('filelog_loglevel',

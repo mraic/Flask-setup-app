@@ -34,7 +34,7 @@ class ApiExceptionHandler:
     def calculate_message(cls, exception, message=None):
         if exception and isinstance(exception, IntegrityError):
             # Try to get original message from SQLAlchemy exception
-            # Since this exception is adapter speciffic, following will work
+            # Since this exception is adapter specific, following will work
             # only for PostgreSQL adapter
             pg_orig = getattr(exception, 'orig', None)
             if pg_orig:

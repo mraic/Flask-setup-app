@@ -2,7 +2,8 @@ from .exception import DefaultAppException, CustomLogException, AppLogException
 from .status import Status
 from .api_exception import ApiExceptionHandler, build_error_response
 from .route_decorators import allow_access, log_access, gzipped
-
+from .functions import *
+from .html_generator import password_reset_email
 
 security_params = {
         'Authorization': {

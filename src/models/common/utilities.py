@@ -57,7 +57,7 @@ def log_sql(title, sql, logger, engine=None):
 
 
 def all_models():
-    # TODO We shuld probably use importlib to implement more generic solution for this
+    # TODO We should probably use importlib to implement more generic solution for this
     # without explicitly using app name to import module
     import flask_sqlalchemy
 

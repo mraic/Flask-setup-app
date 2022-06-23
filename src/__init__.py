@@ -14,6 +14,8 @@ import warnings
 from werkzeug.exceptions import default_exceptions
 
 #Dodati import router od svakoga controllera
+from  src.controller import user_controller, activity_controller,\
+    property_controller, sale_controller
 
 
 def marshmallow_swagger_properties(self, field, **kwargs):
