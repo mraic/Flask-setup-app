@@ -234,7 +234,7 @@ class UserService:
             if paginate_data is not None and paginate_data['length'] else 10
 
         data = User.query.get_all_users(
-            filter_data=filter_main, start=start, length=length)
+            filter_data=filter_main,start=start, length=length)
 
         list_data = []
         schema = UserSchema()
