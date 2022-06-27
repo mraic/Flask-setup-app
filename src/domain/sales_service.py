@@ -3,7 +3,7 @@ from sqlalchemy import and_
 from src import Property, AppLogException, User, Sale
 from src.domain import PropertyService
 from src.general import Status, filter_data_result_with_operator
-from src.views import SaleSchema
+
 
 
 class SaleService:
@@ -39,7 +39,7 @@ class SaleService:
         property_data = PropertyService.get_one(self.sale.property_id)
 
         if data.sale is None:
-            return AppLogException(Status.sale_doesnt_exists)
+            raise AppLogException(Status.sale_doesnt_exists())
         else:
             if property_data.property.status == Property.STATUSES.active:
                 property_data.property.status = Property.STATUSES.inactive
@@ -50,7 +50,7 @@ class SaleService:
 
 
         if User.status == User.STATUSES.inactive:
-            return AppLogException(Status.user_not_activated())
+            raise AppLogException(Status.user_not_activated())
 
         data.sale.buyer_id = self.sale.buyer_id
         data.sale.property_id = self.sale.property_id
@@ -67,7 +67,7 @@ class SaleService:
         data = SaleService.get_one(_id = self.sale.id)
 
         if data.sale is None:
-            return AppLogException(
+            raise AppLogException(
                 Status.sale_doesnt_exists()
             )
 
